@@ -50,7 +50,13 @@ python -m firewatch.mission.patrol
 python -m firewatch.firesim.spread
 
 # Train a fire/smoke detector (after downloading D-Fire, see configs/dfire.yaml)
-python -m firewatch.detection.train --data configs/dfire.yaml --epochs 50
+python -m firewatch.detection.train --data configs/dfire.yaml --epochs 50 --device 0
+
+# Render an operator-style video: detections + GPS of each hotspot
+python -m firewatch.detection.video_demo --weights runs/detect/fire_smoke/weights/best.pt     --source data/footage/wennington_aerial_2022.webm --out out/demo.mp4
 ```
+
+Demo footage is git-ignored; see [data/footage/CREDITS.md](data/footage/CREDITS.md) for
+attribution (aerial Wennington wildfire video by Harri Healey, CC BY 3.0).
 
 Flying in simulation: see [sim/README.md](sim/README.md).
