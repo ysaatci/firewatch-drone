@@ -73,8 +73,8 @@ that will run against a real drone.
   but hotspot/flame work needs aerial + thermal training data.
 - [ ] Download FLAME / FLAME 2 (aerial RGB + thermal from real burns)
 - [ ] Fine-tune on aerial data to close the flame gap
-- [ ] Thermal hotspot detector (the mop-up use case; RGB flames are the wrong sensor)
-- [ ] Thermal hotspot detector (start with thresholding + blob detection, then learned)
+- [ ] Thermal hotspot detector for the mop-up use case — RGB flames are the wrong sensor;
+      start with thresholding + blob detection, then a learned model
 - [ ] Collect false-positive cases: sun glare, hot rocks, vehicles, roofs
 - **Exit:** mAP50 ≥ 0.6 on held-out aerial frames; demo video of detections on FLAME
 
