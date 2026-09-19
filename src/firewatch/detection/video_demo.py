@@ -95,6 +95,8 @@ def run(
     conf: float = 0.35,
     max_width: int = 1280,
     every: int = 1,
+    start: float = 0.0,
+    seconds: float | None = None,
     pose: DronePose | None = None,
     cam: Camera | None = None,
 ) -> Path:
@@ -120,8 +122,14 @@ def run(
         out, cv2.VideoWriter_fourcc(*"mp4v"), src_fps / every, (w + PANEL_W, h)
     )
 
+    if start:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, int(start * src_fps))
+    stop_after = int(seconds * src_fps) if seconds else None
+
     i = frames = hits = 0
     while True:
+        if stop_after is not None and i >= stop_after:
+            break
         ok, frame = cap.read()
         if not ok:
             break
@@ -133,7 +141,7 @@ def run(
 
         detections = detect(model, frame, conf=conf)
         hits += bool(detections)
-        t = i / src_fps
+        t = start + i / src_fps
         # Drift the drone 2 m/s north so the reported coordinates move like a real flight.
         flying = DronePose(pose.lat + t * 2 / 111_320, pose.lon, pose.alt_agl, pose.yaw)
         writer.write(annotate(frame, detections, flying, cam, t))
@@ -157,8 +165,19 @@ def main() -> None:
     ap.add_argument("--conf", type=float, default=0.35)
     ap.add_argument("--max-width", type=int, default=1280)
     ap.add_argument("--every", type=int, default=1, help="process every Nth frame")
+    ap.add_argument("--start", type=float, default=0.0, help="start at this second")
+    ap.add_argument("--seconds", type=float, default=None, help="clip length in seconds")
     args = ap.parse_args()
-    run(args.weights, args.source, args.out, args.conf, args.max_width, args.every)
+    run(
+        args.weights,
+        args.source,
+        args.out,
+        args.conf,
+        args.max_width,
+        args.every,
+        args.start,
+        args.seconds,
+    )
 
 
 if __name__ == "__main__":

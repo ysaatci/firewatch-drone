@@ -51,10 +51,29 @@ that will run against a real drone.
 - [ ] Install WSL2 + Ubuntu 22.04 (needed for PX4 SITL on Windows) — see `sim/README.md`
 
 ### Phase 1 — Fire & smoke detection (weeks 2–4)
-- [ ] Download D-Fire (RGB fire/smoke, YOLO format) → `data/`
+- [x] Download D-Fire (RGB fire/smoke, YOLO format) → `data/dfire` (17,221 train / 4,306 test)
+- [x] Baseline: fine-tune YOLO on D-Fire (`firewatch.detection.train`)
+
+  yolo11n, 20 epochs, 640 px, RTX 5050 (~63 min). On the D-Fire test split:
+
+  | class | precision | recall | mAP50 | mAP50-95 |
+  |---|---|---|---|---|
+  | smoke | 0.794 | 0.727 | 0.800 | 0.482 |
+  | fire  | 0.700 | 0.582 | 0.678 | 0.350 |
+  | **all** | | | **0.739** | **0.416** |
+
+  2.7 ms/frame inference — real-time onboard is feasible. Caveat: D-Fire is mostly
+  ground-level imagery, so this number does *not* transfer to aerial views.
+- [x] First aerial test: Wennington wildfire footage (CC BY 3.0), 278 sampled frames
+
+  Smoke detected in **80%** of frames (246 boxes, peak confidence 0.86) — the smoke
+  column is tracked continuously. Flames: only **5** boxes, peak confidence 0.38.
+  So the ground-level → aerial gap is real and it is concentrated on *flames*, not smoke.
+  Practical read: a D-Fire-trained model is already usable for smoke-column spotting,
+  but hotspot/flame work needs aerial + thermal training data.
 - [ ] Download FLAME / FLAME 2 (aerial RGB + thermal from real burns)
-- [ ] Baseline: fine-tune YOLO on D-Fire (`firewatch.detection.train`)
-- [ ] Evaluate on FLAME aerial footage — this is the realistic test
+- [ ] Fine-tune on aerial data to close the flame gap
+- [ ] Thermal hotspot detector (the mop-up use case; RGB flames are the wrong sensor)
 - [ ] Thermal hotspot detector (start with thresholding + blob detection, then learned)
 - [ ] Collect false-positive cases: sun glare, hot rocks, vehicles, roofs
 - **Exit:** mAP50 ≥ 0.6 on held-out aerial frames; demo video of detections on FLAME
