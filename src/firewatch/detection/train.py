@@ -19,17 +19,21 @@ def main() -> None:
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--device", default=None, help="e.g. 0 for first GPU, cpu for CPU")
     ap.add_argument("--name", default="fire_smoke")
+    ap.add_argument("--fraction", type=float, default=1.0, help="fraction of train set to use")
     args = ap.parse_args()
 
     from ultralytics import YOLO
 
+    from firewatch.detection.data import resolve_dataset_yaml
+
     model = YOLO(args.model)
     model.train(
-        data=args.data,
+        data=str(resolve_dataset_yaml(args.data)),
         epochs=args.epochs,
         imgsz=args.imgsz,
         batch=args.batch,
         device=args.device,
+        fraction=args.fraction,
         project="runs/detect",
         name=args.name,
     )

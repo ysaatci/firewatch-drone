@@ -2,6 +2,7 @@
 # Download and extract so that the layout is:
 #   data/dfire/train/images, data/dfire/train/labels
 #   data/dfire/test/images,  data/dfire/test/labels
+# resolved relative to this file by firewatch.detection.data
 path: ../data/dfire
 train: train/images
 val: test/images
