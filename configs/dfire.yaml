@@ -1,0 +1,11 @@
+# Ultralytics dataset config for D-Fire (https://github.com/gaiasd/DFireDataset)
+# Download and extract so that the layout is:
+#   data/dfire/train/images, data/dfire/train/labels
+#   data/dfire/test/images,  data/dfire/test/labels
+path: ../data/dfire
+train: train/images
+val: test/images
+
+names:
+  0: smoke
+  1: fire
