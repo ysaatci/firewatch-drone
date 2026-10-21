@@ -112,31 +112,7 @@ that will run against a real drone.
 - [ ] Run the *same* mission + detection stack on the real drone
 - **Exit:** field demo finding a planted heat source
 
-## 4. Business track (runs in parallel)
-
-| When | Action |
-|---|---|
-| Weeks 1–6 | Interview 10–15 people: OGM regional directorates, fire crews, forestry faculties, municipalities, forest-adjacent industry (solar farms, resorts) |
-| Week 4 | Join a technopark incubator (İTÜ Çekirdek, ODTÜ Teknokent, Bilişim Vadisi, …) |
-| Weeks 8–12 | Apply for **TÜBİTAK BiGG** using the Phase 1–3 demo |
-| Month 3–4 | Pilot proposal to one regional forestry directorate or a private landowner |
-| Ongoing | Find a hardware/flight co-founder or advisor (TEKNOFEST drone teams are a good pool) |
-
-Key questions to answer in interviews:
-1. How are hotspots found after a fire today, and how often do reignitions happen?
-2. Who decides on buying new tech, and through what procurement channel?
-3. Would they pay per season, per hectare, or per incident?
-
-## 5. Risks
-
-| Risk | Mitigation |
-|---|---|
-| Sim-to-real gap (smoke, glare, heat haze) | Test on real footage (FLAME) from day one; collect own data early |
-| BVLOS / regulatory limits | Start with line-of-sight mop-up ops; engage SHGM early |
-| Government sales cycles are slow | Parallel private customers (energy, tourism, large landowners) |
-| Hardware dependence (DJI restrictions for gov buyers) | Keep autopilot-agnostic via PX4/MAVLink; DJI adapter optional |
-
-## 6. Resources
+## 4. Resources
 
 - **Sim:** PX4 (px4.io), Gazebo (gazebosim.org), MAVSDK (mavsdk.mavlink.io), QGroundControl
 - **Datasets:** D-Fire (github.com/gaiasd/DFireDataset), FLAME (IEEE DataPort), FASDD, NASA FIRMS

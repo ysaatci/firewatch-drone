@@ -4,7 +4,7 @@ Autonomous thermal drones that detect wildfire hotspots and map fire fronts in r
 Built simulation-first: the detection, geolocation, mission and fire-modelling code runs
 against PX4 SITL + Gazebo today and against a real drone later.
 
-See **[docs/PLAN.md](docs/PLAN.md)** for the roadmap, architecture and business track.
+See **[docs/PLAN.md](docs/PLAN.md)** for the roadmap and architecture.
 
 ## Layout
 
